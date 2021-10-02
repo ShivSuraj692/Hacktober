@@ -1,0 +1,102 @@
+public class FIND_THE_k_LARGEST_ELEMENTS_IN_A_BST {  
+	  class Node {
+	     
+	      int data;
+	      Node left, right;
+	   
+	      Node(int d)
+	      {
+	          data = d;
+	          left = right = null;
+	      }
+	  } 
+	   
+	      Node root;
+	   
+	      FIND_THE_k_LARGEST_ELEMENTS_IN_A_BST()
+	      {
+	          root = null;
+	      }
+	       
+	      public void insert(int data)
+	      {
+	          this.root = this.insertRec(this.root, data);
+	      }
+	       
+	      Node insertRec(Node node, int data)
+	      {  
+	          if (node == null) {
+	              this.root = new Node(data);
+	              return this.root;
+	          }
+
+
+
+	   
+	          if (data == node.data) {
+	              return node;
+	          }
+	           
+	          if (data < node.data) {
+	              node.left = this.insertRec(node.left, data);
+	          } else {
+	              node.right = this.insertRec(node.right, data);
+	          }
+	          return node;
+	      }
+	   
+	      public class count {
+	          int c = 0;
+	      }
+	   
+	      void kthLargestUtil(Node node, int k, count C)
+	      {
+	          if (node == null || C.c >= k)
+	              return;
+	           
+	          this.kthLargestUtil(node.right, k, C);
+	           
+	          C.c++;
+	           
+	          if (C.c == k) {
+	              System.out.println(k + "th largest element is " +
+	                                                   node.data);
+	              return;
+	          }
+	           
+	          this.kthLargestUtil(node.left, k, C);
+	      }
+	   
+	      void kthLargest(int k)
+	      {
+	          count c = new count(); // object of class count
+	          this.kthLargestUtil(this.root, k, c);
+	      }
+	   
+	      public static void main(String[] args)
+	      {
+	        FIND_THE_k_LARGEST_ELEMENTS_IN_A_BST tree = new       FIND_THE_k_LARGEST_ELEMENTS_IN_A_BST();
+	           
+	          
+	    tree.insert(19);
+        tree.insert(7);
+        tree.insert(2);
+        tree.insert(3);
+        tree.insert(5);
+        tree.insert(11);
+        tree.insert(17);
+        tree.insert(13);
+        tree.insert(43);
+        tree.insert(23);
+        tree.insert(37);
+        tree.insert(29);
+        tree.insert(31);
+        tree.insert(41);
+        tree.insert(47);
+        tree.insert(53);
+ 
+        for (int i = 1; i <= 3; i++) {
+            tree.kthLargest(i);
+        }
+    }   
+}
