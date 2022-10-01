@@ -1,0 +1,16 @@
+class Solution:
+    #Function to return the minimum cost of connecting the ropes.
+    def minCost(self,arr,n) :
+    
+        # code here
+        if len(arr) == 1: return 0
+        pq = []
+        for i in arr:
+            heapq.heappush(pq,i)
+        
+        res = 0
+        while len(pq) > 1:
+            first,second = heapq.heappop(pq),heapq.heappop(pq)
+            res += first+second
+            heapq.heappush(pq,first+second)
+        return res
